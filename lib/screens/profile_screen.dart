@@ -4,90 +4,212 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF0F0F23), // Matching dark background
       appBar: AppBar(
-        title: Text("Profile", style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.black,
+        title: Text(
+          "Amina Yasmine Mahi",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
         elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF667eea).withOpacity(0.8),
+                Color(0xFF764ba2).withOpacity(0.8),
+              ],
+            ),
+          ),
+        ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // User Profile Image
+            // Profile Picture
             Center(
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage("assets/user_profile.png"),
+              child: Container(
+                width: 100,
+                height: 100,
+                margin: EdgeInsets.only(bottom: 20),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF4AC7D8), Color(0xFF36B5C0)],
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Amina Yasmine MAHI",
-                    style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "a.mahi@flowapp-eu.com",
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xFF4AC7D8).withOpacity(0.4),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
+                    ),
+                  ],
+                ),
+                child: CircleAvatar(
+                  radius: 48,
+                  backgroundColor: Colors.transparent,
+                  backgroundImage: AssetImage("assets/user_profile.png"),
+                ),
               ),
             ),
 
+            // About Me Section
+            _buildSection("About Me", [
+              _buildProfileItem("@reallygreatsite", "Username"),
+              _buildProfileItem("hello@reallygreatsite.com", "E-mail Address"),
+              _buildProfileItem("+123-456-7890", "Phone Number"),
+              _buildProfileItem("123 Anywhere St., Any City, ST 12345", "Address"),
+            ]),
+
             SizedBox(height: 30),
 
-            // Profile Options
-            ProfileOption(icon: Icons.person, title: "Account Settings"),
-            ProfileOption(icon: Icons.lock, title: "Privacy & Security"),
-            ProfileOption(icon: Icons.notifications, title: "Notifications"),
-            ProfileOption(icon: Icons.language, title: "Language"),
-            ProfileOption(icon: Icons.help, title: "Help & Support"),
+            // Settings Section
+            _buildSection("Settings", [
+              _buildProfileItem("English", "Language"),
+              _buildProfileItem("Silent Mode", "Notifications & Message"),
+              _buildProfileItem("Dark Mode", "Theme"),
+              _buildProfileItem("Camera, Location, & Microphone", "Device Permissions"),
+              _buildProfileItem("Highest Quality", "Mobile Data Settings"),
+            ]),
 
-            Spacer(),
+            SizedBox(height: 30),
 
-            // Logout Button
-            ElevatedButton(
-              onPressed: () {
-                // Handle logout logic
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.redAccent,
-                padding: EdgeInsets.symmetric(vertical: 14, horizontal: 40),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            // Sign Out Button
+            Center(
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFFE74C3C), Color(0xFFC0392B)],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xFFE74C3C).withOpacity(0.4),
+                      blurRadius: 12,
+                      offset: Offset(0, 6),
+                    ),
+                  ],
+                ),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: Text(
+                    "Sign Out",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
               ),
-              child: Text("Log Out", style: TextStyle(color: Colors.white, fontSize: 16)),
             ),
 
-            SizedBox(height: 30),
+            SizedBox(height: 20),
+
+            // Privacy Policy
+            Center(
+              child: TextButton(
+                onPressed: () {},
+                child: Text(
+                  "Privacy & Policy",
+                  style: TextStyle(
+                    color: Color(0xFF4AC7D8),
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
-}
 
-// Profile Option Widget
-class ProfileOption extends StatelessWidget {
-  final IconData icon;
-  final String title;
-
-  ProfileOption({required this.icon, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-          leading: Icon(icon, color: Colors.white),
-          title: Text(title, style: TextStyle(color: Colors.white, fontSize: 16)),
-          trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 16),
-          onTap: () {
-            // Handle navigation
-          },
+  Widget _buildSection(String title, List<Widget> children) {
+    return Container(
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withOpacity(0.08),
+            Colors.white.withOpacity(0.03),
+          ],
         ),
-        Divider(color: Colors.grey[800]),
-      ],
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Colors.white.withOpacity(0.1),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 20,
+            offset: Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 16),
+          ...children,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProfileItem(String value, String label) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            value,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.6),
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

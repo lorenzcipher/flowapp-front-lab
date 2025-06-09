@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/user_viewmodel.dart';
-import 'webview_screen.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
       // Navigate to WebViewScreen for demo login
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => WebViewScreen()),
+        MaterialPageRoute(builder: (context) => HomeScreen()),
       );
       return;
     }
@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
       // For now, navigate to WebViewScreen (you can add proper validation later)
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => WebViewScreen()),
+        MaterialPageRoute(builder: (context) => HomeScreen()),
       );
     } else {
       // Show error message if fields are empty
